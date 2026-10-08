@@ -1,0 +1,280 @@
+
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, viewport-fit=cover">
+
+    <meta name="theme-color" content="#376F80">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+
+    <title>Biglietto da visita</title>
+
+    <!-- PT Sans -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=PT+Sans:wght@400;700&display=swap"
+          rel="stylesheet">
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html,
+        body {
+            width: 100%;
+            min-height: 100%;
+        }
+
+        body {
+            min-height: 100svh;
+            background: rgb(55, 111, 128);
+            color: #FFFFFF;
+            font-family: "PT Sans", sans-serif;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            padding:
+                max(24px, env(safe-area-inset-top))
+                24px
+                max(24px, env(safe-area-inset-bottom))
+                24px;
+        }
+
+        .card {
+            width: 100%;
+            max-width: 390px;
+
+            text-align: center;
+        }
+
+        .initial {
+            width: 88px;
+            height: 88px;
+
+            margin: 0 auto 24px;
+
+            border: 2px solid rgba(255,255,255,0.85);
+            border-radius: 50%;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-size: 36px;
+            font-weight: 700;
+
+            color: #FFFFFF;
+        }
+
+        h1 {
+            font-size: 32px;
+            line-height: 1.1;
+            font-weight: 700;
+            letter-spacing: 0.2px;
+        }
+
+        .role {
+            margin-top: 8px;
+
+            font-size: 18px;
+            line-height: 1.4;
+
+            color: rgba(255,255,255,0.88);
+        }
+
+        .divider {
+            width: 42px;
+            height: 1px;
+
+            margin: 28px auto;
+
+            background: rgba(255,255,255,0.55);
+        }
+
+        .contacts {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .contact {
+            display: flex;
+            align-items: center;
+
+            width: 100%;
+            min-height: 52px;
+
+            padding: 0 18px;
+
+            border: 1px solid rgba(255,255,255,0.25);
+            border-radius: 14px;
+
+            color: #FFFFFF;
+            text-decoration: none;
+
+            background: rgba(255,255,255,0.06);
+
+            font-size: 17px;
+
+            transition:
+                background 0.2s ease,
+                transform 0.2s ease;
+        }
+
+        .contact:active {
+            transform: scale(0.98);
+            background: rgba(255,255,255,0.14);
+        }
+
+        .icon {
+            width: 28px;
+
+            margin-right: 10px;
+
+            font-size: 19px;
+            text-align: center;
+        }
+
+        .contact span:last-child {
+            flex: 1;
+            text-align: left;
+        }
+
+        .save {
+            margin-top: 24px;
+
+            width: 100%;
+            min-height: 54px;
+
+            border: none;
+            border-radius: 14px;
+
+            background: #FFFFFF;
+            color: rgb(55,111,128);
+
+            font-family: "PT Sans", sans-serif;
+            font-size: 17px;
+            font-weight: 700;
+
+            cursor: pointer;
+
+            transition:
+                transform 0.2s ease,
+                opacity 0.2s ease;
+        }
+
+        .save:active {
+            transform: scale(0.98);
+            opacity: 0.9;
+        }
+
+        .footer {
+            margin-top: 28px;
+
+            font-size: 13px;
+
+            color: rgba(255,255,255,0.55);
+        }
+
+        @media (min-width: 600px) {
+
+            body {
+                padding: 40px;
+            }
+
+            .card {
+                max-width: 420px;
+            }
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <main class="card">
+
+        <!-- Iniziale / logo -->
+        <div class="initial">
+            MT
+        </div>
+
+        <!-- Nome -->
+        <h1>Matteo Terzaghi</h1>
+
+        <!-- Professione -->
+        <p class="role">
+            IT specialist / Biomedical engineer
+        </p>
+
+        <div class="divider"></div>
+
+        <!-- Contatti -->
+        <div class="contacts">
+
+            <a class="contact" href="tel:+393456595216">
+                <span class="icon">☎</span>
+                <span>+39 345 659 5216</span>
+            </a>
+
+            <a class="contact" href="mailto:matteo.terzaghi@icsmaugeri.it">
+                <span class="icon">✉</span>
+                <span>matteo.terzaghi@icsmaugeri.it</span>
+            </a>
+
+        </div>
+
+        <!-- Salvataggio contatto -->
+        <button class="save" onclick="saveContact()">
+            Aggiungi ai contatti
+        </button>
+
+        <p class="footer">
+            Matteo Terzaghi - Biglietto da visita digitale
+        </p>
+
+    </main>
+
+    <script>
+
+        function saveContact() {
+
+            const vCard = `BEGIN:VCARD
+                VERSION:1.0
+                FN:Matteo Terzaghi
+                TEL;TYPE=CELL:+393456595261
+                EMAIL:matteo.terzaghi@icsmaugeri.it
+                END:VCARD`;
+
+            const blob = new Blob(
+                [vCard],
+                { type: "text/vcard;charset=utf-8" }
+            );
+
+            const url = URL.createObjectURL(blob);
+
+            const link = document.createElement("a");
+            link.href = url;
+            link.download = "Matteo-Terzaghi.vcf";
+
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+
+            URL.revokeObjectURL(url);
+        }
+
+    </script>
+
+</body>
+</html>
