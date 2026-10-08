@@ -1,23 +1,37 @@
-
 <!DOCTYPE html>
 <html lang="it">
+
 <head>
+
     <meta charset="UTF-8">
 
     <meta name="viewport"
-          content="width=device-width, initial-scale=1, viewport-fit=cover">
+          content="width=device-width,
+                   initial-scale=1,
+                   viewport-fit=cover">
 
-    <meta name="theme-color" content="#376F80">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="theme-color"
+          content="rgb(55,111,128)">
 
-    <title>Biglietto da visita</title>
+    <meta name="apple-mobile-web-app-capable"
+          content="yes">
+
+    <meta name="apple-mobile-web-app-status-bar-style"
+          content="default">
+
+    <title>Matteo Terzaghi</title>
 
     <!-- PT Sans -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect"
+          href="https://fonts.googleapis.com">
+
+    <link rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossorigin>
+
     <link href="https://fonts.googleapis.com/css2?family=PT+Sans:wght@400;700&display=swap"
           rel="stylesheet">
+
 
     <style>
 
@@ -27,254 +41,423 @@
             padding: 0;
         }
 
+
         html,
         body {
             width: 100%;
             min-height: 100%;
         }
 
+
         body {
+
             min-height: 100svh;
-            background: rgb(55, 111, 128);
-            color: #FFFFFF;
+
+            background: rgb(55,111,128);
+
             font-family: "PT Sans", sans-serif;
 
+            color: #ffffff;
+
             display: flex;
+
             align-items: center;
             justify-content: center;
 
             padding:
                 max(24px, env(safe-area-inset-top))
-                24px
+                20px
                 max(24px, env(safe-area-inset-bottom))
-                24px;
+                20px;
+
         }
+
+
+        /* =========================
+           CARD
+        ========================= */
 
         .card {
+
             width: 100%;
-            max-width: 390px;
 
-            text-align: center;
+            max-width: 430px;
+
+            padding: 34px 30px 30px;
+
+            border-radius: 28px;
+
+            background: rgb(55,111,128);
+
+            border: 1px solid rgba(255,255,255,0.18);
+
+            /*
+             * Effetto card in rilievo
+             * stile Apple
+             */
+
+            box-shadow:
+
+                0 28px 60px rgba(0,0,0,0.28),
+
+                0 8px 18px rgba(0,0,0,0.16),
+
+                inset 0 1px 0 rgba(255,255,255,0.16),
+
+                inset 0 -1px 0 rgba(0,0,0,0.12);
+
         }
 
-        .initial {
-            width: 88px;
-            height: 88px;
 
-            margin: 0 auto 24px;
+        /* =========================
+           NOME
+        ========================= */
 
-            border: 2px solid rgba(255,255,255,0.85);
-            border-radius: 50%;
+        .name {
 
-            display: flex;
-            align-items: center;
-            justify-content: center;
-
-            font-size: 36px;
-            font-weight: 700;
-
-            color: #FFFFFF;
-        }
-
-        h1 {
             font-size: 32px;
+
             line-height: 1.1;
+
             font-weight: 700;
-            letter-spacing: 0.2px;
+
+            letter-spacing: -0.4px;
+
         }
+
+
+        /* =========================
+           RUOLO
+        ========================= */
 
         .role {
-            margin-top: 8px;
+
+            margin-top: 7px;
 
             font-size: 18px;
-            line-height: 1.4;
 
-            color: rgba(255,255,255,0.88);
+            line-height: 1.3;
+
+            font-weight: 400;
+
+            color: rgba(255,255,255,0.92);
+
         }
 
-        .divider {
-            width: 42px;
+
+        .department {
+
+            margin-top: 2px;
+
+            font-size: 16px;
+
+            line-height: 1.3;
+
+            color: rgba(255,255,255,0.72);
+
+        }
+
+
+        /* =========================
+           SEPARATORE
+        ========================= */
+
+        .separator {
+
             height: 1px;
 
-            margin: 28px auto;
+            margin: 25px 0;
 
-            background: rgba(255,255,255,0.55);
+            background:
+                rgba(255,255,255,0.25);
+
         }
+
+
+        /* =========================
+           CONTATTI
+        ========================= */
 
         .contacts {
+
             display: flex;
+
             flex-direction: column;
+
             gap: 12px;
+
         }
+
 
         .contact {
+
             display: flex;
-            align-items: center;
 
-            width: 100%;
-            min-height: 52px;
+            align-items: baseline;
 
-            padding: 0 18px;
+            gap: 10px;
 
-            border: 1px solid rgba(255,255,255,0.25);
-            border-radius: 14px;
+            font-size: 16px;
 
-            color: #FFFFFF;
+            line-height: 1.35;
+
+        }
+
+
+        .label {
+
+            width: 72px;
+
+            flex-shrink: 0;
+
+            color:
+                rgba(255,255,255,0.58);
+
+            font-size: 14px;
+
+        }
+
+
+        .value {
+
+            color: #ffffff;
+
             text-decoration: none;
 
-            background: rgba(255,255,255,0.06);
+            word-break: break-word;
 
-            font-size: 17px;
+        }
+
+
+        a.value {
 
             transition:
-                background 0.2s ease,
-                transform 0.2s ease;
+                opacity 0.2s ease;
+
         }
 
-        .contact:active {
-            transform: scale(0.98);
-            background: rgba(255,255,255,0.14);
+
+        a.value:active {
+
+            opacity: 0.65;
+
         }
 
-        .icon {
-            width: 28px;
 
-            margin-right: 10px;
+        /* =========================
+           AZIENDA
+        ========================= */
 
-            font-size: 19px;
-            text-align: center;
-        }
+        .company {
 
-        .contact span:last-child {
-            flex: 1;
-            text-align: left;
-        }
+            margin-top: 25px;
 
-        .save {
-            margin-top: 24px;
+            font-size: 15px;
 
-            width: 100%;
-            min-height: 54px;
+            line-height: 1.4;
 
-            border: none;
-            border-radius: 14px;
-
-            background: #FFFFFF;
-            color: rgb(55,111,128);
-
-            font-family: "PT Sans", sans-serif;
-            font-size: 17px;
             font-weight: 700;
 
-            cursor: pointer;
-
-            transition:
-                transform 0.2s ease,
-                opacity 0.2s ease;
         }
 
-        .save:active {
-            transform: scale(0.98);
-            opacity: 0.9;
+
+        .address {
+
+            margin-top: 3px;
+
+            font-size: 14px;
+
+            line-height: 1.4;
+
+            color:
+                rgba(255,255,255,0.72);
+
         }
 
-        .footer {
-            margin-top: 28px;
 
-            font-size: 13px;
+        .website {
 
-            color: rgba(255,255,255,0.55);
+            color: #ffffff;
+
+            text-decoration: none;
+
         }
+
+
+        /* =========================
+           RESPONSIVE
+        ========================= */
+
+        @media (max-width: 380px) {
+
+            .card {
+
+                padding:
+                    28px 24px 25px;
+
+                border-radius: 24px;
+
+            }
+
+
+            .name {
+
+                font-size: 29px;
+
+            }
+
+
+            .role {
+
+                font-size: 17px;
+
+            }
+
+
+            .contact {
+
+                font-size: 15px;
+
+            }
+
+        }
+
 
         @media (min-width: 600px) {
 
             body {
+
                 padding: 40px;
+
             }
 
-            .card {
-                max-width: 420px;
-            }
         }
 
     </style>
+
 </head>
+
 
 <body>
 
+
     <main class="card">
 
-        <!-- Iniziale / logo -->
-        <div class="initial">
-            MT
-        </div>
 
-        <!-- Nome -->
-        <h1>Matteo Terzaghi</h1>
+        <!-- NOME -->
 
-        <!-- Professione -->
+        <h1 class="name">
+            Matteo Terzaghi
+        </h1>
+
+
+        <!-- RUOLO -->
+
         <p class="role">
-            IT specialist / Biomedical engineer
+            Direzione Sistemi Informativi
         </p>
 
-        <div class="divider"></div>
-
-        <!-- Contatti -->
-        <div class="contacts">
-
-            <a class="contact" href="tel:+393456595216">
-                <span class="icon">☎</span>
-                <span>+39 345 659 5216</span>
-            </a>
-
-            <a class="contact" href="mailto:matteo.terzaghi@icsmaugeri.it">
-                <span class="icon">✉</span>
-                <span>matteo.terzaghi@icsmaugeri.it</span>
-            </a>
-
-        </div>
-
-        <!-- Salvataggio contatto -->
-        <button class="save" onclick="saveContact()">
-            Aggiungi ai contatti
-        </button>
-
-        <p class="footer">
-            Matteo Terzaghi - Biglietto da visita digitale
+        <p class="department">
+            Information Technology
         </p>
+
+
+        <div class="separator"></div>
+
+
+        <!-- CONTATTI -->
+
+        <section class="contacts">
+
+
+            <div class="contact">
+
+                <span class="label">
+                    telefono
+                </span>
+
+                <a class="value"
+                   href="tel:+390382592511">
+
+                    +39 0382 592511
+
+                </a>
+
+            </div>
+
+
+            <div class="contact">
+
+                <span class="label">
+                    cellulare
+                </span>
+
+                <a class="value"
+                   href="tel:+393456595216">
+
+                    +39 345 6595216
+
+                </a>
+
+            </div>
+
+
+            <div class="contact">
+
+                <span class="label">
+                    e-mail
+                </span>
+
+                <a class="value"
+                   href="mailto:matteo.terzaghi@icsmaugeri.it">
+
+                    matteo.terzaghi@icsmaugeri.it
+
+                </a>
+
+            </div>
+
+
+        </section>
+
+
+        <div class="separator"></div>
+
+
+        <!-- AZIENDA -->
+
+        <section>
+
+            <p class="company">
+
+                Istituti Clinici Scientifici
+                Maugeri SpA Società Benefit
+
+            </p>
+
+
+            <p class="address">
+
+                Via Salvatore Maugeri, 4 -
+                27100 Pavia |
+
+                <a class="website"
+                   href="https://www.icsmaugeri.it"
+                   target="_blank"
+                   rel="noopener">
+
+                    icsmaugeri.it
+
+                </a>
+
+            </p>
+
+        </section>
+
 
     </main>
 
-    <script>
-
-        function saveContact() {
-
-            const vCard = `BEGIN:VCARD
-                VERSION:1.0
-                FN:Matteo Terzaghi
-                TEL;TYPE=CELL:+393456595261
-                EMAIL:matteo.terzaghi@icsmaugeri.it
-                END:VCARD`;
-
-            const blob = new Blob(
-                [vCard],
-                { type: "text/vcard;charset=utf-8" }
-            );
-
-            const url = URL.createObjectURL(blob);
-
-            const link = document.createElement("a");
-            link.href = url;
-            link.download = "Matteo-Terzaghi.vcf";
-
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-
-            URL.revokeObjectURL(url);
-        }
-
-    </script>
 
 </body>
+
 </html>
