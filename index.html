@@ -50,63 +50,62 @@
 
 
         body {
+    min-height: 100svh;
 
-            min-height: 100svh;
+    background: #F2F2F7;
 
-            background: rgb(55,111,128);
+    font-family: "PT Sans", sans-serif;
+    color: #FFFFFF;
 
-            font-family: "PT Sans", sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
-            color: #ffffff;
-
-            display: flex;
-
-            align-items: center;
-            justify-content: center;
-
-            padding:
-                max(24px, env(safe-area-inset-top))
-                20px
-                max(24px, env(safe-area-inset-bottom))
-                20px;
-
-        }
+    padding:
+        max(24px, env(safe-area-inset-top))
+        20px
+        max(24px, env(safe-area-inset-bottom))
+        20px;
+}
 
 
-        /* =========================
-           CARD
-        ========================= */
+/* =========================
+   CARD IN RILIEVO
+========================= */
 
-        .card {
+.card {
 
-            width: 100%;
+    width: 100%;
+    max-width: 430px;
 
-            max-width: 430px;
+    padding: 34px 30px 30px;
 
-            padding: 34px 30px 30px;
+    border-radius: 28px;
 
-            border-radius: 28px;
+    background: rgb(55,111,128);
 
-            background: rgb(55,111,128);
+    /*
+     * Bordo molto leggero,
+     * come una superficie illuminata
+     */
 
-            border: 1px solid rgba(255,255,255,0.18);
+    border: 1px solid rgba(255,255,255,0.38);
 
-            /*
-             * Effetto card in rilievo
-             * stile Apple
-             */
+    /*
+     * Effetto rilievo:
+     *
+     * - ombra grande e morbida
+     * - ombra ravvicinata
+     * - leggero highlight superiore
+     */
 
-            box-shadow:
+    box-shadow:
+        0 30px 60px rgba(0,0,0,0.18),
+        0 10px 24px rgba(0,0,0,0.12),
+        0 2px 5px rgba(0,0,0,0.08),
+        inset 0 1px 0 rgba(255,255,255,0.20);
 
-                0 28px 60px rgba(0,0,0,0.28),
-
-                0 8px 18px rgba(0,0,0,0.16),
-
-                inset 0 1px 0 rgba(255,255,255,0.16),
-
-                inset 0 -1px 0 rgba(0,0,0,0.12);
-
-        }
+}
 
 
         /* =========================
