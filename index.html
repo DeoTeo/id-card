@@ -336,7 +336,7 @@
             return result + line;
         }
         
-        function addToContacts() {
+        async function addToContacts() {
             const base64Image = await fileToBase64("./logo_app.png");
             const photo = foldVCardLine("PHOTO;ENCODING=b;TYPE=PNG:" + base64Image) + "\r\n";
             
