@@ -179,12 +179,12 @@
         }
         
         .action-button:hover {
-            background: rgb(76, 133, 150);
+            background: rgb(157, 190, 199);
         }
         
         .action-button:active {
             transform: scale(0.97);
-            background: rgb(60, 115, 132);
+            background: rgb(157, 190, 199);
         }
         
         .button-icon {
@@ -274,12 +274,12 @@
         <div class="buttons">
             <button class="action-button" type="button" onclick="addToContacts()">
                 <!--<span class="button-icon">＋</span>-->
-                <span>Aggiungi in rubrica</span>
+                <span>Condividi scheda contatto</span>
             </button>
-            <button class="action-button" type="button" onclick="shareContact()">
-                <!--<span class="button-icon">↗</span>-->
+            <!--<button class="action-button" type="button" onclick="shareContact()">
+                <span class="button-icon">↗</span>
                 <span>Condividi contatto</span>
-            </button>
+            </button>-->
         </div>
     </main>
 
@@ -312,7 +312,34 @@
             }
         }
         
+        async function fileToBase64(url) {
+            const response = await fetch(url);
+            const blob = await response.blob();
+        
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.onloadend = () => {
+                    resolve(reader.result.split(",")[1]);
+                };
+                reader.onerror = reject;
+                reader.readAsDataURL(blob);
+            });
+        }
+
+        function foldVCardLine(line) {
+            const maxLength = 75;
+            let result = "";
+            while (line.length > maxLength) {
+                result += line.substring(0, maxLength) + "\r\n ";
+                line = line.substring(maxLength);
+            }
+            return result + line;
+        }
+        
         function addToContacts() {
+            const base64Image = await fileToBase64("./logo_app.png");
+            const photo = foldVCardLine("PHOTO;ENCODING=b;TYPE=PNG:" + base64Image) + "\r\n";
+            
             const vcard =
                 "BEGIN:VCARD\r\n" +
                 "VERSION:3.0\r\n" +
@@ -325,6 +352,7 @@
                 "EMAIL;TYPE=WORK:matteo.terzaghi@icsmaugeri.it\r\n" +
                 "ADR;TYPE=WORK:;;Via Salvatore Maugeri 4;Pavia;;27100;Italia\r\n" +
                 "URL:https://www.icsmaugeri.it\r\n" +
+                photo +
                 "END:VCARD\r\n";
             const blob = new Blob(
                 [vcard],
