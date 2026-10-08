@@ -312,48 +312,21 @@
             }
         }
         
-        async function fileToBase64(url) {
-            const response = await fetch(url);
-            const blob = await response.blob();
-        
-            return new Promise((resolve, reject) => {
-                const reader = new FileReader();
-                reader.onloadend = () => {
-                    resolve(reader.result.split(",")[1]);
-                };
-                reader.onerror = reject;
-                reader.readAsDataURL(blob);
-            });
-        }
-
-        function foldVCardLine(line) {
-            const maxLength = 75;
-            let result = "";
-            while (line.length > maxLength) {
-                result += line.substring(0, maxLength) + "\r\n ";
-                line = line.substring(maxLength);
-            }
-            return result + line;
-        }
-        
-        async function addToContacts() {
-            const base64Image = await fileToBase64("./logo_app.png");
-            const photo = foldVCardLine("PHOTO;ENCODING=b;TYPE=PNG:" + base64Image) + "\r\n";
-            
+        function addToContacts() {
             const vcard =
                 "BEGIN:VCARD\r\n" +
                 "VERSION:3.0\r\n" +
                 "FN:Matteo Terzaghi\r\n" +
                 "N:Terzaghi;Matteo;;;\r\n" +
                 "ORG:Istituti Clinici Scientifici Maugeri SpA Società Benefit\r\n" +
-                "TITLE:IT specialist & Biomedical engineer\r\n" +
+                "TITLE:Specialista IT & Ingegnere biomedico\r\n" +
                 "TEL;TYPE=WORK,VOICE:+390382592511\r\n" +
                 "TEL;TYPE=CELL,VOICE:+393456595216\r\n" +
                 "EMAIL;TYPE=WORK:matteo.terzaghi@icsmaugeri.it\r\n" +
                 "ADR;TYPE=WORK:;;Via Salvatore Maugeri 4;Pavia;;27100;Italia\r\n" +
                 "URL:https://www.icsmaugeri.it\r\n" +
-                photo +
                 "END:VCARD\r\n";
+            
             const blob = new Blob(
                 [vcard],
                 {type: "text/vcard;charset=utf-8"}
