@@ -406,36 +406,53 @@
         async function showQRCode() {
             const overlay = document.getElementById("qrOverlay");
             const container = document.getElementById("qrcode");
+            container.innerHTML = "";
+            overlay.classList.add("visible");
+        
+            const loading = document.createElement("p");
+            loading.textContent = "Generazione QR Code...";
+            container.appendChild(loading);
+        
             try {
-                if (typeof window.QRCode === "undefined") {
-                    await new Promise((resolve, reject) => {
-                        const script = document.createElement("script");
-                        script.src = "https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js";
-                        script.onload = resolve;
-                        script.onerror = () => reject(new Error("Libreria QR Code non caricata"));
-                        document.head.appendChild(script);
-                    });
-                }
-
-                if (typeof window.QRCode === "undefined") {
-                    throw new Error("Libreria QR Code non disponibile");
+                const vcard = createVCard();
+                const response = await fetch(
+                    "https://api.qrserver.com/v1/create-qr-code/?" +
+                    new URLSearchParams({
+                        size: "240x240",
+                        data: vcard,
+                        ecc: "L",
+                        margin: "10"
+                    })
+                );
+        
+                if (!response.ok) {
+                    throw new Error("Servizio QR Code non disponibile");
                 }
         
+                const blob = await response.blob();
+        
+                if (!blob.type.startsWith("image/")) {
+                    throw new Error("Risposta non valida");
+                }
+        
+                const img = document.createElement("img");
+                img.alt = "QR Code per aggiungere Matteo Terzaghi ai contatti";
+                img.width = 240;
+                img.height = 240;
+                img.style.width = "240px";
+                img.style.height = "240px";
+                img.src = URL.createObjectURL(blob);
                 container.innerHTML = "";
-        
-                new window.QRCode(container, {
-                    text: createVCard(),
-                    width: 240,
-                    height: 240,
-                    colorDark: "#263b42",
-                    colorLight: "#ffffff",
-                    correctLevel: window.QRCode.CorrectLevel.L
-                });        
-                overlay.classList.add("visible");
+                container.appendChild(img);
             } catch (error) {
                 console.error("Errore QR Code:", error);
-                alert("Non riesco a generare il QR Code.\n\n" + "Controlla la connessione Internet e ricarica la pagina."
-                );
+                container.innerHTML = "";
+        
+                const message = document.createElement("p");
+                message.textContent =
+                    "Non è stato possibile generare il QR Code. " +
+                    "Verifica la connessione Internet e riprova.";
+                container.appendChild(message);
             }
         }
     
