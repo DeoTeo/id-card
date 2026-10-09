@@ -229,6 +229,78 @@
                 font-size: 15px;
             }
         }
+
+        .qr-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 1000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.55);
+            backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(6px);
+        }
+        
+        .qr-overlay.visible {
+            display: flex;
+        }
+        
+        .qr-modal {
+            width: 100%;
+            max-width: 340px;
+            padding: 28px 22px;
+            border-radius: 26px;
+            background: #f2f2f2;
+            color: #263b42;
+            text-align: center;
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.3);
+        }
+        
+        .qr-modal h2 {
+            font-size: 23px;
+            margin-bottom: 8px;
+        }
+        
+        .qr-modal p {
+            font-size: 14px;
+            line-height: 1.5;
+            color: #5e6c70;
+            margin-bottom: 18px;
+        }
+        
+        #qrcode {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 240px;
+            margin: 0 auto 18px;
+        }
+        
+        #qrcode img,
+        #qrcode canvas {
+            max-width: 100%;
+            height: auto;
+            border-radius: 6px;
+        }
+        
+        .qr-close {
+            width: 100%;
+            min-height: 48px;
+            border: none;
+            border-radius: 15px;
+            background: rgb(55, 111, 128);
+            color: white;
+            font-family: "PT Sans", sans-serif;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+        
+        .qr-close:active {
+            transform: scale(0.98);
+        }
     </style>
 </head>
 
@@ -273,63 +345,52 @@
         </section>
         <div class="buttons">
             <button class="action-button" type="button" onclick="addToContacts()">
-                <!--<span class="button-icon">＋</span>-->
                 <span>Condividi scheda contatto</span>
             </button>
-            <!--<button class="action-button" type="button" onclick="shareContact()">
-                <span class="button-icon">↗</span>
-                <span>Condividi contatto</span>
-            </button>-->
+        
+            <button class="action-button" type="button" onclick="showQRCode()">
+                <span>Mostra QR Code</span>
+            </button>
         </div>
     </main>
 
+    <div id="qrOverlay" class="qr-overlay" onclick="closeQRCode(event)">
+        <div class="qr-modal" role="dialog" aria-modal="true" aria-labelledby="qrTitle">
+            <h2 id="qrTitle">Aggiungi contatto</h2>
+            <p>
+                Inquadra il QR Code con la fotocamera
+                del tuo smartphone per importare il contatto.
+            </p>
+            <div id="qrcode"></div>
+            <p>Matteo Terzaghi<br>Istituti Clinici Scientifici Maugeri</p>
+            <button class="qr-close" type="button" onclick="closeQRCode()">Chiudi</button>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
     <script>
-        async function shareContact() {
-            const shareData = {
-                title: "Matteo Terzaghi",
-                text:
-                    "Matteo Terzaghi\n" +
-                    "IT specialist & Biomedical engineer\n" +
-                    "Cellulare: +39 345 659 5216\n" +
-                    "E-mail: matteo.terzaghi@icsmaugeri.it",
-                url: window.location.href
-            };
-            if (navigator.share) {
-                try {
-                    await navigator.share(shareData);
-                } catch (error) {
-                    console.log("Condivisione annullata.");
-                }
-            } else {
-                try {
-                    await navigator.clipboard.writeText(
-                        window.location.href
-                    );
-                    alert("Link del contatto copiato negli appunti!");
-                } catch (error) {
-                    alert("Copia questo indirizzo per condividere il contatto:\n\n" + window.location.href);
-                }
-            }
+        function createVCard() {
+            return [
+                "BEGIN:VCARD",
+                "VERSION:3.0",
+                "FN:Matteo Terzaghi",
+                "N:Terzaghi;Matteo;;;",
+                "ORG:Istituti Clinici Scientifici Maugeri SpA Società Benefit",
+                "TITLE:Specialista IT & Ingegnere biomedico",
+                "TEL;TYPE=WORK,VOICE:+390382592511",
+                "TEL;TYPE=CELL,VOICE:+393456595216",
+                "EMAIL;TYPE=WORK:matteo.terzaghi@icsmaugeri.it",
+                "ADR;TYPE=WORK:;;Via Salvatore Maugeri 4;Pavia;;27100;Italia",
+                "URL:https://www.icsmaugeri.it",
+                "END:VCARD"
+            ].join("\r\n") + "\r\n";
         }
-        
+    
         function addToContacts() {
-            const vcard =
-                "BEGIN:VCARD\r\n" +
-                "VERSION:3.0\r\n" +
-                "FN:Matteo Terzaghi\r\n" +
-                "N:Terzaghi;Matteo;;;\r\n" +
-                "ORG:Istituti Clinici Scientifici Maugeri SpA Società Benefit\r\n" +
-                "TITLE:Specialista IT & Ingegnere biomedico\r\n" +
-                "TEL;TYPE=WORK,VOICE:+390382592511\r\n" +
-                "TEL;TYPE=CELL,VOICE:+393456595216\r\n" +
-                "EMAIL;TYPE=WORK:matteo.terzaghi@icsmaugeri.it\r\n" +
-                "ADR;TYPE=WORK:;;Via Salvatore Maugeri 4;Pavia;;27100;Italia\r\n" +
-                "URL:https://www.icsmaugeri.it\r\n" +
-                "END:VCARD\r\n";
-            
+            const vcard = createVCard();
             const blob = new Blob(
                 [vcard],
-                {type: "text/vcard;charset=utf-8"}
+                { type: "text/vcard;charset=utf-8" }
             );
             const url = URL.createObjectURL(blob);
             const link = document.createElement("a");
@@ -342,6 +403,42 @@
                 URL.revokeObjectURL(url);
             }, 1000);
         }
+    
+        function showQRCode() {
+            const overlay = document.getElementById("qrOverlay");
+            const container = document.getElementById("qrcode");
+            container.innerHTML = "";
+            try {
+                new QRCode(container, {
+                    text: createVCard(),
+                    width: 240,
+                    height: 240,
+                    colorDark: "#263b42",
+                    colorLight: "#ffffff",
+                    correctLevel: QRCode.CorrectLevel.L
+                });
+                overlay.classList.add("visible");
+            } catch (error) {
+                alert(
+                    "Impossibile generare il QR Code. " +
+                    "Riprova tra qualche istante."
+                );
+            }
+        }
+    
+        function closeQRCode(event) {
+            const overlay = document.getElementById("qrOverlay");
+            if (event && event.target !== overlay) {
+                return;
+            }
+            overlay.classList.remove("visible");
+        }
+    
+        document.addEventListener("keydown", function(event) {
+            if (event.key === "Escape") {
+                document.getElementById("qrOverlay").classList.remove("visible");
+            }
+        });
     </script>
 </body>
 </html>
