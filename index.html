@@ -472,21 +472,21 @@
                     <input id="email" name="email"
                            type="email" autocomplete="email"
                            maxlength="150"
-                           placeholder="nome@azienda.it">
+                           placeholder="nome.cognome@icsmaugeri.it">
                 </div>
                 <p class="section-title">Azienda</p>
                 <div class="field">
                     <label for="company">Nome azienda *</label>
                     <input id="company" name="company" required
                            maxlength="180"
-                           placeholder="Es. Nome azienda S.p.A.">
+                           placeholder="Es. Istituti Clinici Scientifici Maugeri SpA Società Benefit">
                 </div>
                 <div class="field">
                     <label for="street">Indirizzo</label>
                     <input id="street" name="street"
                            autocomplete="street-address"
                            maxlength="180"
-                           placeholder="Via, numero civico">
+                           placeholder="Es. Via Salvatore Maugeri, 4">
                 </div>
                 <div class="field">
                     <label for="city">Città</label>
@@ -505,7 +505,7 @@
                     <input id="website" name="website"
                            type="text" inputmode="url"
                            maxlength="200"
-                           placeholder="Es. www.azienda.it">
+                           placeholder="Es. www.icsmaugeri.it">
                 </div>
                 <p class="required-note">
                     * Campi obbligatori. Gli altri dati sono facoltativi.
@@ -554,9 +554,6 @@
                     Modifica dati
                 </button>
             </div>
-            <p class="footnote">
-                Biglietto da visita digitale
-            </p>
         </section>
     </main>
     <!-- MODALE QR CODE -->
@@ -818,7 +815,7 @@
             const website = data.website;
             if (website && !normalizeWebsite(website)) {
                 formError.textContent =
-                    "Inserisci un indirizzo web valido, ad esempio www.azienda.it.";
+                    "Inserisci un indirizzo web valido, ad esempio www.icsmaugeri.it.";
                 formError.hidden = false;
                 getField("website").focus();
                 return;
