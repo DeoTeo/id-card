@@ -367,7 +367,6 @@
         </div>
     </div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
     <script>
         function createVCard() {
             return [
@@ -404,24 +403,38 @@
             }, 1000);
         }
     
-        function showQRCode() {
+        async function showQRCode() {
             const overlay = document.getElementById("qrOverlay");
             const container = document.getElementById("qrcode");
-            container.innerHTML = "";
             try {
-                new QRCode(container, {
+                if (typeof window.QRCode === "undefined") {
+                    await new Promise((resolve, reject) => {
+                        const script = document.createElement("script");
+                        script.src = "https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js";
+                        script.onload = resolve;
+                        script.onerror = () => reject(new Error("Libreria QR Code non caricata"));
+                        document.head.appendChild(script);
+                    });
+                }
+
+                if (typeof window.QRCode === "undefined") {
+                    throw new Error("Libreria QR Code non disponibile");
+                }
+        
+                container.innerHTML = "";
+        
+                new window.QRCode(container, {
                     text: createVCard(),
                     width: 240,
                     height: 240,
                     colorDark: "#263b42",
                     colorLight: "#ffffff",
-                    correctLevel: QRCode.CorrectLevel.L
-                });
+                    correctLevel: window.QRCode.CorrectLevel.L
+                });        
                 overlay.classList.add("visible");
             } catch (error) {
-                alert(
-                    "Impossibile generare il QR Code. " +
-                    "Riprova tra qualche istante."
+                console.error("Errore QR Code:", error);
+                alert("Non riesco a generare il QR Code.\n\n" + "Controlla la connessione Internet e ricarica la pagina."
                 );
             }
         }
