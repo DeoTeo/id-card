@@ -477,9 +477,9 @@
                 <p class="section-title">Azienda</p>
                 <div class="field">
                     <label for="company">Nome azienda *</label>
-                    <input id="company" name="company" required
+                    <input id="company" name="company" readonly
                            maxlength="180"
-                           placeholder="Es. Istituti Clinici Scientifici Maugeri SpA Società Benefit">
+                           value="Istituti Clinici Scientifici Maugeri SpA Società Benefit">
                 </div>
                 <div class="field">
                     <label for="street">Indirizzo</label>
@@ -980,7 +980,7 @@
             setText(
                 "qrContactName",
                 profile.firstName + " " + profile.lastName +
-                "\n" + profile.company
+                "\n\n" + profile.company
             );
             overlay.classList.add("visible");
             getField("closeQR").focus();
