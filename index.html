@@ -476,10 +476,11 @@
                 </div>
                 <p class="section-title">Azienda</p>
                 <div class="field">
-                    <label for="company">Nome azienda *</label>
-                    <input id="company" name="company" readonly
-                           maxlength="180"
-                           placeholder="Istituti Clinici Scientifici Maugeri SpA Società Benefit"
+                    <label>Nome azienda</label>
+                    <p class="fixed-value">
+                        Istituti Clinici Scientifici Maugeri SpA Società Benefit
+                    </p>
+                    <input type="hidden" id="company" name="company"
                            value="Istituti Clinici Scientifici Maugeri SpA Società Benefit">
                 </div>
                 <div class="field">
@@ -502,12 +503,10 @@
                            maxlength="15" placeholder="Es. 27100">
                 </div>
                 <div class="field">
-                    <label for="website">Sito web</label>
-                    <input id="website" name="website"
-                           type="text" inputmode="url"
-                           maxlength="200" readonly
-                           value="www.icsmaugeri.it"
-                           placeholder="www.icsmaugeri.it">
+                    <label>Sito web aziendale</label>
+                    <p class="fixed-value">www.icsmaugeri.it</p>
+                    <input type="hidden" id="website" name="website"
+                           value="www.icsmaugeri.it">
                 </div>
                 <p class="required-note">
                     * Campi obbligatori. Gli altri dati sono facoltativi.
@@ -593,6 +592,10 @@
             "postalCode",
             "website"
         ];
+        const DEFAULT_VALUES = {
+            company: "Istituti Clinici Scientifici Maugeri SpA Società Benefit",
+            website: "www.icsmaugeri.it"
+        };
         const form = document.getElementById("profileForm");
         const setupView = document.getElementById("setupView");
         const cardView = document.getElementById("cardView");
@@ -652,7 +655,12 @@
             formError.hidden = true;
             formError.textContent = "";
             fields.forEach(function (key) {
-                getField(key).value = data ? (data[key] || "") : "";
+                const field = getField(key);
+                if (data) {
+                    field.value = data[key] || DEFAULT_VALUES[key] || "";
+                } else {
+                    field.value = DEFAULT_VALUES[key] || "";
+                }
             });
             document.getElementById("formTitle").textContent =
                 editing ? "Modifica il tuo biglietto" :
