@@ -616,7 +616,12 @@
                 cifre = cifre.substring(2);
             }
             let formattato = numero;
-            if (tipo === "fisso" && cifre.length === 11) {
+            if (tipo === "fisso" && cifre.length === 10) {
+                formattato = cifre.replace(
+                    /^(\d{4})(\d{2})(\d{2})(\d{2})$/,
+                    "$1 $2 $3 $4"
+                );
+            } else if (tipo === "fisso" && cifre.length === 11) {
                 formattato = cifre.replace(
                     /^(\d{4})(\d{2})(\d{2})(\d{3})$/,
                     "$1 $2 $3 $4"
