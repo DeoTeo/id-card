@@ -608,6 +608,29 @@
         function getField(id) {
             return document.getElementById(id);
         }
+        function formattaTelefono(numero, tipo) {
+            if (!numero) return "";
+            let cifre = numero.replace(/\D/g, "");
+            if (cifre.startsWith("39") &&
+                (cifre.length === 12 || cifre.length === 13)) {
+                cifre = cifre.substring(2);
+            }
+            let formattato = numero;
+            if (tipo === "fisso" && cifre.length === 11) {
+                formattato = cifre.replace(
+                    /^(\d{4})(\d{2})(\d{2})(\d{3})$/,
+                    "$1 $2 $3 $4"
+                );
+            } else if (tipo === "mobile" && cifre.length === 10) {
+                formattato = cifre.replace(
+                    /^(\d{3})(\d{2})(\d{2})(\d{3})$/,
+                    "$1 $2 $3 $4"
+                );
+            } else {
+                return numero;
+            }
+            return "+39 " + formattato;
+        }
         function normalizeProfile(data) {
             const normalized = {};
             fields.forEach(function (key) {
@@ -745,7 +768,7 @@
             if (profile.workPhone) {
                 contacts.appendChild(
                     createLink(
-                        profile.workPhone,
+                        formattaTelefono(profile.workPhone, "fisso"),
                         "tel:" + profile.workPhone.replace(/[^\d+]/g, ""),
                         "telefono"
                     )
@@ -754,7 +777,7 @@
             if (profile.mobile) {
                 contacts.appendChild(
                     createLink(
-                        profile.mobile,
+                        formattaTelefono(profile.mobile, "mobile"),
                         "tel:" + profile.mobile.replace(/[^\d+]/g, ""),
                         "cellulare"
                     )
@@ -888,13 +911,13 @@
             if (p.workPhone) {
                 lines.push(
                     "TEL;TYPE=WORK,VOICE:" +
-                    escapeVCard(p.workPhone)
+                    escapeVCard(formattaTelefono(p.workPhone, "fisso"))
                 );
             }
             if (p.mobile) {
                 lines.push(
                     "TEL;TYPE=CELL,VOICE:" +
-                    escapeVCard(p.mobile)
+                    escapeVCard(formattaTelefono(p.mobile, "mobile"))
                 );
             }
             if (p.email) {
