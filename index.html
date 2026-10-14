@@ -933,8 +933,7 @@
                 link.target = "_blank";
                 link.rel = "noopener noreferrer";
                 try {
-                    link.textContent = new URL(websiteUrl).hostname
-                        .replace(/^www\./i, "");
+                    link.textContent = "L'Azienda" //new URL(websiteUrl).hostname.replace(/^www\./i, "");
                 } catch (error) {
                     link.textContent = profile.website;
                 }
@@ -953,8 +952,7 @@
                 link2.target = "_blank";
                 link2.rel = "noopener noreferrer";
                 try {
-                    link2.textContent = new URL(websiteUrl2).hostname
-                        .replace(/^www\./i, "");
+                    link2.textContent = "Fondazione Salvatore Maugeri" //new URL(websiteUrl2).hostname.replace(/^www\./i, "");
                 } catch {
                     link2.textContent = profile.website2;
                 }
