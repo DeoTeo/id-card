@@ -649,14 +649,23 @@
                 </button>
                 <button id="openQR" class="icon-button"
                     type="button" aria-label="Mostra QR Code" title="Mostra QR Code">
-                    <svg viewBox="0 0 24 24" fill="currentColor">
-                        <rect x="3" y="3" width="6" height="6"/>
-                        <rect x="15" y="3" width="6" height="6"/>
-                        <rect x="3" y="15" width="6" height="6"/>
-                        <rect x="13" y="13" width="2" height="2"/>
-                        <rect x="17" y="13" width="2" height="2"/>
-                        <rect x="13" y="17" width="2" height="2"/>
-                        <rect x="17" y="17" width="4" height="4"/>
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <!-- angolo alto sinistra -->
+                        <rect x="3" y="3" width="5" height="5" rx="1"></rect>
+                        <rect x="4.5" y="4.5" width="2" height="2"></rect>
+                        <!-- angolo alto destra -->
+                        <rect x="16" y="3" width="5" height="5" rx="1"></rect>
+                        <rect x="17.5" y="4.5" width="2" height="2"></rect>
+                        <!-- angolo basso sinistra -->
+                        <rect x="3" y="16" width="5" height="5" rx="1"></rect>
+                        <rect x="4.5" y="17.5" width="2" height="2"></rect>
+                        <!-- moduli QR -->
+                        <rect x="11" y="11" width="2" height="2"></rect>
+                        <rect x="14" y="11" width="1.5" height="1.5"></rect>
+                        <rect x="11" y="14" width="1.5" height="1.5"></rect>
+                        <rect x="14" y="14" width="3" height="3"></rect>
+                        <rect x="18" y="12" width="2" height="2"></rect>
+                        <rect x="12" y="18" width="2" height="2"></rect>
                     </svg>
                 </button>
             </div>
