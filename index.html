@@ -801,22 +801,22 @@
         function setOptionalVisibility(id, visible) {
             getField(id).hidden = !visible;
         }
-        function normalize(value) {
+        function normalizeWebsite(value) {
             if (!value) {
                 return "";
             }
-            let  = value.trim();
-            if (!/^https?:\/\//i.test()) {
-                 = "https://" + ;
+            let website = value.trim();
+            if (!/^https?:\/\//i.test(website)) {
+                website = "https://" + website;
             }
             try {
-                const url = new URL();
+                const url = new URL(website);
                 if (url.protocol !== "https:" &&
                     url.protocol !== "http:") {
                     return "";
                 }
                 return url.href;
-            } catch (error) {
+            } catch {
                 return "";
             }
         }
