@@ -525,10 +525,10 @@
                 <div class="field">
                     <label>Nome azienda</label>
                     <p class="fixed-value">
-                        Istituti Clinici Scientifici Maugeri SpA Società Benefit
+                        Istituti Clinici Scientifici Maugeri SpA Società Benefit | P.IVA: 02631650187 | C.F.: 02631650187 | SDI: MZO2A0U
                     </p>
                     <input type="hidden" id="company" name="company"
-                           value="Istituti Clinici Scientifici Maugeri SpA Società Benefit">
+                           value="Istituti Clinici Scientifici Maugeri SpA Società Benefit | P.IVA: 02631650187 | C.F.: 02631650187 | SDI: MZO2A0U">
                 </div>
                 <div class="field">
                     <label for="street">Indirizzo</label>
@@ -669,6 +669,18 @@
                     </svg>
                 </button>
             </div>
+            <article class="card">
+                <h1 id="displayName" class="name"></h1>
+                <p id="displayRole" class="role"></p>
+                <p id="displayDepartment" class="department"></p>
+                <div class="separator"></div>
+                <div id="displayContacts" class="contacts"></div>
+                <div id="companySeparator" class="separator"></div>
+                <section>
+                    <p id="displayCompany" class="company"></p>
+                    <p id="displayAddress" class="address"></p>
+                </section>
+            </article>
         </section>
     </main>
     <!-- MODALE QR CODE -->
@@ -708,7 +720,7 @@
             "website2"
         ];
         const DEFAULT_VALUES = {
-            company: "Istituti Clinici Scientifici Maugeri SpA Società Benefit",
+            company: "Istituti Clinici Scientifici Maugeri SpA Società Benefit | P.IVA: 02631650187 | C.F.: 02631650187 | SDI: MZO2A0U",
             website: "www.icsmaugeri.it",
             website2: "www.fondazionesalvatoremaugeri.org"
         };
