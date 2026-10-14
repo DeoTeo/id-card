@@ -591,26 +591,24 @@
                     <p id="displayAddress" class="address"></p>
                 </section>
             </article>
-            <div class="buttons" style="margin-top: 20px">
-                <button class="action-button" type="button">
-                    <p id="displayWebsiteLine"></p>
+            <div class="buttons" style="margin-top:20px">
+                <button id="displayWebsiteLine"
+                        class="action-button"
+                        type="button">
                 </button>
             </div>
             <div class="buttons">
-                <button class="action-button" type="button">
-                    <p id="displayWebsiteLine2"></p>
+                <button id="displayWebsiteLine2"
+                        class="action-button"
+                        type="button">
                 </button>
             </div>
             <div class="buttons">
-                <button class="action-button" type="button">
-                    <p id="displayPdfLine"></p>
+                <button id="displayPdfLine"
+                        class="action-button"
+                        type="button">
                 </button>
             </div>
-            <!--<div class="buttons" style="margin-top: 20px">
-                <button class="action-button" type="button" id="openQR">
-                    Mostra QR Code
-                </button>
-            </div>-->
             <div class="icon-actions">
                 <button id="shareContact" class="icon-button"
                         type="button" aria-label="Condividi contatto"
@@ -944,12 +942,10 @@
                 link.href = websiteUrl;
                 link.target = "_blank";
                 link.rel = "noopener noreferrer";
-                try {
-                    link.textContent = "L'Azienda" //new URL(websiteUrl).hostname.replace(/^www\./i, "");
-                } catch (error) {
-                    link.textContent = profile.website;
-                }
-                websiteLine.appendChild(link);
+                websiteLine.textContent = "L'Azienda";
+                websiteLine.onclick = () => {
+                    window.open(websiteUrl, "_blank");
+                };
                 websiteLine.hidden = false;
             } else {
                 websiteLine.hidden = true;
@@ -963,12 +959,10 @@
                 link2.href = websiteUrl2;
                 link2.target = "_blank";
                 link2.rel = "noopener noreferrer";
-                try {
-                    link2.textContent = "Fondazione Salvatore Maugeri" //new URL(websiteUrl2).hostname.replace(/^www\./i, "");
-                } catch {
-                    link2.textContent = profile.website2;
-                }
-                websiteLine2.appendChild(link2);
+                websiteLine2.textContent = "Fondazione Salvatore Maugeri";
+                websiteLine2.onclick = () => {
+                    window.open(websiteUrl2, "_blank");
+                };
                 websiteLine2.hidden = false;
             } else {
                 websiteLine2.hidden = true;
@@ -980,8 +974,10 @@
             pdfLink.href = "company_profile.pdf";
             pdfLink.target = "_blank";
             pdfLink.rel = "noopener noreferrer";
-            pdfLink.textContent = "📄 Company Profile Maugeri - ITA";
-            pdfLine.appendChild(pdfLink);
+            pdfLine.textContent = "Company Profile Maugeri";
+            pdfLine.onclick = () => {
+                window.open("company_profile.pdf", "_blank");
+            };
             pdfLine.hidden = false;
             document.title = fullName + " | Biglietto da visita";
         }
